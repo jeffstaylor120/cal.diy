@@ -74,8 +74,8 @@ services:
       - "3000"
     environment:
       # Tells Coolify's proxy to expose this service on port 3000 and assign a domain.
-      # Set/override the domain in the Coolify UI; it populates NEXT_PUBLIC_WEBAPP_URL.
-      - SERVICE_FQDN_CALCOM_3000
+      # Must be KEY=VALUE form (a bare key breaks Coolify's list->map conversion).
+      - "SERVICE_FQDN_CALCOM_3000=${SERVICE_FQDN_CALCOM_3000}"
       - NEXT_PUBLIC_WEBAPP_URL=${SERVICE_FQDN_CALCOM_3000}
       - DATABASE_URL=postgresql://${SERVICE_USER_POSTGRES}:${SERVICE_PASSWORD_POSTGRES}@database:5432/calendso
       - DATABASE_DIRECT_URL=postgresql://${SERVICE_USER_POSTGRES}:${SERVICE_PASSWORD_POSTGRES}@database:5432/calendso
@@ -97,7 +97,8 @@ services:
       - "80"
     environment:
       # Public domain for the v2 API, routed by Coolify's proxy to port 80.
-      - SERVICE_FQDN_CALCOMAPI_80
+      # Must be KEY=VALUE form (a bare key breaks Coolify's list->map conversion).
+      - "SERVICE_FQDN_CALCOMAPI_80=${SERVICE_FQDN_CALCOMAPI_80}"
       - NODE_ENV=${NODE_ENV:-production}
       - API_PORT=80
       - API_URL=${SERVICE_FQDN_CALCOMAPI_80}
